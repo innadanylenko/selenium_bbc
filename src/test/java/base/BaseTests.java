@@ -1,6 +1,7 @@
 package base;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -38,8 +39,25 @@ public class BaseTests {
         for(WebElement summary:allSummaries) {
             System.out.println(summary.getText());
             System.out.println();
+            WebElement parent = (WebElement) ((JavascriptExecutor) driver).executeScript(
+                    "return arguments[0].parentNode;", summary);
+            System.out.println(parent.toString());
 
-       }
+            //((RemoteWebElement) parent).findElementByClassName("media__link").getText()
+
+            //find Title
+            //parent.findElement(By.className("media__link")).getText();
+            //or
+            //((RemoteWebElement) parent).findElementByClassName("media__link").getText()
+
+            //find Link
+            //((RemoteWebElement) parent).findElementByClassName("media__link").getAttribute("href")
+
+            //find Summary
+            //((RemoteWebElement) parent).findElementByClassName("media__summary").getText()
+
+
+        }
 
 
         //Close the driver
