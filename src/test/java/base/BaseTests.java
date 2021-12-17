@@ -5,12 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import java.util.List;
-//TODO: switch to headless browser
 
 public class BaseTests {
+
 
     public static void main(String[] args) {
 
@@ -24,17 +23,24 @@ public class BaseTests {
         WebDriver driver = new ChromeDriver(options);
 
         driver.get("https://www.bbc.com");
-        System.out.println(driver.getTitle());
 
-        //Get list of web-elements with tagName  - a
-        List<WebElement> allLinks = driver.findElements(By.tagName("a"));
+        //Get list of web-elements with tagName  - a (Media news)
+
+        WebElement firstSummary = driver.findElement(By.className("media__summary"));
+
+        //System.out.println(firstSummary.getText());
+
+
+        List<WebElement> allSummaries = driver.findElements(By.className("media__summary"));
 
         //Traversing through the list and printing its text along with link address
-        for(WebElement link:allLinks) {
-            System.out.println(link.getText() + " - " + link.getAttribute("href"));
+        for(WebElement summary:allSummaries) {
+            System.out.println(summary.getText());
+            System.out.println();
 
        }
         //Close the driver
         driver.close();
     }
+
 }
