@@ -28,6 +28,7 @@ public class BaseTests {
 
         WebElement firstSummary = driver.findElement(By.className("media__summary"));
 
+
         //System.out.println(firstSummary.getText());
 
 
@@ -39,6 +40,8 @@ public class BaseTests {
             System.out.println();
 
        }
+
+
         //Close the driver
         driver.close();
     }
