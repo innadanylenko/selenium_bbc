@@ -6,8 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebElement;
 
-import java.util.List;
+import java.util.*;
 
 public class BaseTests {
 
@@ -25,38 +26,28 @@ public class BaseTests {
 
         driver.get("https://www.bbc.com");
 
-        //Get list of web-elements with tagName  - a (Media news)
-
-        WebElement firstSummary = driver.findElement(By.className("media__summary"));
-
-
-        //System.out.println(firstSummary.getText());
-
-
         List<WebElement> allSummaries = driver.findElements(By.className("media__summary"));
+        List<News> newsList = new ArrayList<>();
 
-        //Traversing through the list and printing its text along with link address
         for(WebElement summary:allSummaries) {
-            System.out.println(summary.getText());
-            System.out.println();
+
+            News news = new News();
+
+            //save description
+            String news_description = summary.getText();
+
+            //find and save topic
             WebElement parent = (WebElement) ((JavascriptExecutor) driver).executeScript(
                     "return arguments[0].parentNode;", summary);
-            System.out.println(parent.toString());
 
-            //((RemoteWebElement) parent).findElementByClassName("media__link").getText()
+            String news_topic = ((RemoteWebElement) parent).findElementByClassName("media__link").getText();
+            news.setTopic(news_topic);
 
-            //find Title
-            //parent.findElement(By.className("media__link")).getText();
-            //or
-            //((RemoteWebElement) parent).findElementByClassName("media__link").getText()
+            //find and save link
+            String news_link = ((RemoteWebElement) parent).findElementByClassName("media__link").getAttribute("href");
+            news.setLink(news_link);
 
-            //find Link
-            //((RemoteWebElement) parent).findElementByClassName("media__link").getAttribute("href")
-
-            //find Summary
-            //((RemoteWebElement) parent).findElementByClassName("media__summary").getText()
-
-
+            newsList.add(news);
         }
 
 
