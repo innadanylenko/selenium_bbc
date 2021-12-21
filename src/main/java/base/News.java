@@ -1,5 +1,7 @@
 package base;
 
+import static java.util.Objects.isNull;
+
 public class News {
     private String link;
     private String topic;
@@ -27,5 +29,18 @@ public class News {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public int hashCode() {
+        return link.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (isNull(obj)) {
+            return false;
+        }
+        return link.equals(((News) obj).link);
     }
 }
